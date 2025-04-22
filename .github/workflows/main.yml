@@ -21,4 +21,4 @@ jobs:
 
       - uses: ./.github/actions/build-dotnet
         with:
-          working-directory: ${{ github.event.inputs.working-directory || 'DotNet' }}
+          working-directory: ${{ inputs.working-directory || 'DotNet' }}
