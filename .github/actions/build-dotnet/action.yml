@@ -4,7 +4,7 @@ inputs:
   project-path:
     description: "Path to the Java project"
     required: false
-    default: "."
+    default: "DotNet"
 
 jobs:
   build:
@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-publish
-          path: ${{ inputs.working-directory }}/publish
+          path: ${{ inputs.project-path }}/publish
