@@ -1,36 +1,39 @@
 name: Build .NET App
+description: Build and publish a .NET project
 
 inputs:
   project-path:
-    description: "Path to the Java project"
+    description: "Path to the .NET project"
     required: false
     default: "DotNet"
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          path: ${{ inputs.project-path }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        path: ${{ inputs.project-path }}
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "8.0.x"
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: "8.0.x"
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore
+      shell: bash
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      shell: bash
 
-      - name: Publish
-        run: dotnet publish --configuration Release --no-restore -o ./publish
+    - name: Publish
+      run: dotnet publish --configuration Release --no-restore -o ./publish
+      shell: bash
 
-      - name: Upload published app
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-publish
-          path: ${{ inputs.project-path }}/publish
+    - name: Upload published app
+      uses: actions/upload-artifact@v4
+      with:
+        name: dotnet-publish
+        path: ${{ inputs.project-path }}/publish
