@@ -1,9 +1,9 @@
 name: Reuse .NET Build Workflow
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
     inputs:
       working-directory:
@@ -21,4 +21,4 @@ jobs:
 
       - uses: ./.github/actions/build-dotnet
         with:
-          working-directory: ${{ inputs.working-directory || 'DotNet' }}
+          working-directory: ${{ github.event.inputs.working-directory || 'DotNet' }}
