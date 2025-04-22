@@ -1,0 +1,40 @@
+name: Build .NET App
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "Project root where .csproj is located"
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish --configuration Release --no-restore -o ./publish
+
+      - name: Upload published app
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-publish
+          path: ${{ inputs.working-directory }}/publish

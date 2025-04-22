@@ -1,0 +1,34 @@
+# Build output
+bin/
+obj/
+publish/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Dotnet secrets
+secrets.json
+
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+
+# ReSharper
+_ReSharper*/
