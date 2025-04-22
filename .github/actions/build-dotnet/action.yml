@@ -1,23 +1,19 @@
 name: Build .NET App
 
-on:
-  workflow_call:
-    inputs:
-      working-directory:
-        description: "Project root where .csproj is located"
-        required: true
-        type: string
+inputs:
+  project-path:
+    description: "Path to the Java project"
+    required: false
+    default: "."
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ inputs.working-directory }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          path: ${{ inputs.project-path }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4

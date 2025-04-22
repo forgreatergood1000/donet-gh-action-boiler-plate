@@ -1,15 +1,9 @@
 name: Reuse .NET Build Workflow
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  workflow_dispatch:
-    inputs:
-      working-directory:
-        description: "Path to the .NET project folder"
-        required: true
-        default: "DotNet" # Change this default if needed
+  push:
+    branches:
+      - main
 
 jobs:
   call-build:
@@ -21,4 +15,4 @@ jobs:
 
       - uses: ./.github/actions/build-dotnet
         with:
-          working-directory: ${{ github.event.inputs.working-directory || 'DotNet' }}
+          project-path: "DotNet"
